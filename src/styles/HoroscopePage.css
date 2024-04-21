@@ -1,0 +1,33 @@
+.horoscope-page {
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  background-image: url('https://imgs.search.brave.com/jRkI0weDkn8TT4bbwRUriREkkWqnHsnWiO8Ijx5Q1qg/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/dmV0b3Jlcy1ncmF0/aXMvZnVuZG8tYWJz/dHJhdG8tZ3JhZGll/bnRlLWNvbnN0ZWxh/Y2FvXzIzLTIxNDgy/ODI0ODUuanBnP3Np/emU9NjI2JmV4dD1q/cGc');
+}
+
+.horoscope-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.horoscope-content {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  margin: auto;
+  max-width: 600px;
+}
+
+.horoscope-date {
+  background-color: #444;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.horoscope-text {
+  text-align: left;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}

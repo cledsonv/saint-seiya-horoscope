@@ -1,0 +1,39 @@
+.zodiac-card {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  padding: 15px;
+  width: 150px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 450px;
+  width: 450px;
+  margin: 10px;
+}
+
+.zodiac-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.zodiac-card h2 {
+  margin: 10px 0;
+  font-size: 1.5rem;
+  font-family: 'Serif', sans-serif;
+}
+
+.armor-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.sign-name {
+  font-family: 'Serif', sans-serif;
+  font-size: 24px;
+}
