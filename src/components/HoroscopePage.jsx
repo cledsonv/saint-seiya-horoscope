@@ -1,27 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import cheerio from 'cheerio';
 import { useParams } from 'react-router-dom';
-import '../styles/HoroscopePage.css';
 
-const HoroscopePage = () => {
-    let { sign } = useParams();
-    // A variável sign deve ser "Libra" para esta página específica
-    const today = new Date().toLocaleDateString();
-    const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString();
+function HoroscopePage() {
+  const [horoscope, setHoroscope] = useState({
+    daily: '',
+    weekly: '',
+    monthly: '',
+    annual: ''
+  });
+
+  const { sign } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const urls = {
+        dailyUrl: `https://www.horoscopovirtual.com.br/horoscopo/${sign}`,
+        weeklyUrl: `https://www.horoscopovirtual.com.br/horoscoposemanal/${sign}`,
+        monthlyUrl: `https://www.horoscopovirtual.com.br/horoscopomensal/${sign}`,
+        annualUrl: `https://www.horoscopovirtual.com.br/artigos/horoscopo-${sign}-2024-previsao-anual`
+      };
+
+      try {
+        const responses = await Promise.all(Object.values(urls).map(url => axios.get(url)));
+        const horoscopeContent = responses.map(response => {
+          const $ = cheerio.load(response.data);
+          // Aqui você usa '.find' para buscar dentro do contexto de 'article' com o ID específico do signo
+          // e então encontrar o parágrafo com a classe 'text-pred'
+          return $(`article#${sign}-name`).find('p.text-pred').text().trim();
+        });
   
-    const horoscopeData = {
-      today: "O Sol entra em sua zona de parcerias, trazendo novas conexões e reforçando as existentes, balanceando a balança da harmonia em seus relacionamentos, Libra. Um momento para refletir sobre dar e receber, e encontrar o equilíbrio perfeito em suas interações.",
-      tomorrow: "Amanhã promete ser um dia de descobertas internas, onde sua busca pela justiça e igualdade pode ser recompensada com insights profundos. Esteja aberto a diálogos que podem trazer luz a questões pendentes."
+        setHoroscope({
+          daily: horoscopeContent[0],
+          weekly: horoscopeContent[1],
+          monthly: horoscopeContent[2],
+          annual: horoscopeContent[3]
+        });
+      } catch (error) {
+        console.error('Failed to fetch horoscope data:', error);
+      }
     };
   
-    return (
-      <div className="horoscope-page" sign={sign}>
-        <h1>Horóscopo do Dia para {sign}</h1>
-        <div className="horoscope-date">{today}</div>
-        <div className="horoscope-text">{horoscopeData.today}</div>
-        <div className="horoscope-date">{tomorrow}</div>
-        <div className="horoscope-text">{horoscopeData.tomorrow}</div>
-      </div>
-    );
-  };
-  
-  export default HoroscopePage;
+    fetchData();
+  }, [sign]);
+
+  return (
+    <div>
+      <h2>Horóscopo de {sign.charAt(0).toUpperCase() + sign.slice(1)}</h2>
+      <h3>Diário</h3>
+      <p>{horoscope.daily}</p>
+      <h3>Semanal</h3>
+      <p>{horoscope.weekly}</p>
+      <h3>Mensal</h3>
+      <p>{horoscope.monthly}</p>
+      <h3>Anual</h3>
+      <p>{horoscope.annual}</p>
+    </div>
+  );
+}
+
+export default HoroscopePage;

@@ -1,11 +1,11 @@
 import React from 'react';
 import '../styles/ZodiacCard.css';
 
-const ZodiacCard = ({ sign, onClick, armorImg }) => {
+const ZodiacCard = ({ sign, armorImg, onClick }) => {
   return (
     <div className="zodiac-card" onClick={onClick}>
-      <img src={armorImg} alt={sign} className="armor-image" />
-      <h2 className="sign-name">{sign}</h2>
+      <img src={armorImg} alt={`${sign} symbol`} />
+      <h3>{sign}</h3>
     </div>
   );
 };

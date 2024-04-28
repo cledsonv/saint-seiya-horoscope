@@ -11,8 +11,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 450px;
-  width: 450px;
+  height: 500px;
+  width: 180px;
   margin: 10px;
 }
 
@@ -28,7 +28,6 @@
 }
 
 .armor-image {
-  width: 100%;
   height: auto;
   margin-bottom: 10px;
 }

@@ -2,32 +2,44 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ZodiacCard from './ZodiacCard';
 import '../styles/ZodiacGrid.css';
+import aries from '../assets/aries.png';
+import touro from '../assets/touro.png';
+import gemeos from '../assets/gemeos.png';
+import cancer from '../assets/cancer.png';
+import leao from '../assets/leao.png';
+import virgem from '../assets/virgem.png';
+import libra from '../assets/libra.png';
+import escorpiao from '../assets/escorpiao.png';
+import sagitario from '../assets/sagitario.png';
+import capricornio from '../assets/capricornio.png';
+import aquario from '../assets/aquario.png';
+import peixes from '../assets/peixes.png';
 
 const zodiacSigns = [
-  { sign: 'Aries', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Shion_de_Aries_057-600x337.png' },
-  { sign: 'Taurus', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Taurus_Aldebaran_Soul_of_Gold_-_02-600x338.png' },
-  { sign: 'Gemini', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Gemini_Saga_Soul_of_Gold-2-600x338.png' },
-  { sign: 'Cancer', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Mpc-hc-2010-09-06-09-56-06-89-600x338.jpg' },
-  { sign: 'Leo', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Aioria-Leo_106-600x450.jpg' },
-  { sign: 'Virgo', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/VirgoShaka-1.jpg' },
-  { sign: 'Libra', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Dohko_de_Libra-600x450.png' },
-  { sign: 'Scorpio', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Milo_anime_01-600x450.jpg' },
-  { sign: 'Sagittarius', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Sagittarius-aiolos-saint-seiya-28249-1920x1080-600x338.jpg' },
-  { sign: 'Capricorn', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Shura-Capricornio_17-600x450.jpg' },
-  { sign: 'Aquarius', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/Aquarius_Camus_Soul_of_Gold-3.png-600x338.png' },
-  { sign: 'Pisces', img: 'https://www.fatosdesconhecidos.com.br/wp-content/uploads/2017/11/maxresdefault-1-27-600x332.jpg' }
+  { sign: 'Aries', img: aries },
+  { sign: 'Touro', img: touro },
+  { sign: 'Gemeos', img: gemeos },
+  { sign: 'Cancer', img: cancer },
+  { sign: 'Leao', img: leao },
+  { sign: 'Virgem', img: virgem },
+  { sign: 'Libra', img: libra },
+  { sign: 'Escorpiao', img: escorpiao },
+  { sign: 'Sagitario', img: sagitario },
+  { sign: 'Capricornio', img: capricornio },
+  { sign: 'Aquario', img: aquario },
+  { sign: 'Peixes', img: peixes },
 ];
 
 const ZodiacGrid = () => {
   let navigate = useNavigate();
 
   const goToHoroscope = (sign) => {
-    navigate(`/horoscope/${sign}`);
+    console.log(`Navigating to horoscope page for: ${sign}`);
+    navigate(`/horoscope/${sign.toLowerCase()}`);
   };
 
   return (
     <div className="zodiac-grid">
-      {/* Coloque todos os signos do zodíaco aqui */}
       {zodiacSigns.map((e) => (
         <ZodiacCard sign={e.sign} onClick={() => goToHoroscope(e.sign)} armorImg={e.img}/>
       ))}
@@ -36,4 +48,3 @@ const ZodiacGrid = () => {
 };
 
 export default ZodiacGrid;
-
