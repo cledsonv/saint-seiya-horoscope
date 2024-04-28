@@ -1,11 +1,36 @@
 .App {
   text-align: center;
-  color: white;
+  color:  #20232a;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #282c34;
+  position: relative;
 }
+
+.App::after {
+  content: "";
+  background-image: url('./assets/Background');
+  background-size: cover;
+  opacity: 0.6; /* Ajuste a opacidade aqui */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+
+.App::before {
+  content: "";
+  background: rgb(128, 128, 128); /* Fundo cinza com opacidade */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+
 
 .App-header {
   background-color: #20232a;
