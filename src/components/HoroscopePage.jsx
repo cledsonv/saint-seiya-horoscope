@@ -1,52 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import cheerio from 'cheerio';
 import { useParams } from 'react-router-dom';
+import '../styles/HoroscopePage.css';
 
 function HoroscopePage() {
   const [horoscope, setHoroscope] = useState({
     daily: '',
     weekly: '',
     monthly: '',
-    annual: ''
+    annual: {}
   });
 
   const { sign } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const urls = {
-        dailyUrl: `https://www.horoscopovirtual.com.br/horoscopo/${sign}`,
-        weeklyUrl: `https://www.horoscopovirtual.com.br/horoscoposemanal/${sign}`,
-        monthlyUrl: `https://www.horoscopovirtual.com.br/horoscopomensal/${sign}`,
-        annualUrl: `https://www.horoscopovirtual.com.br/artigos/horoscopo-${sign}-2024-previsao-anual`
-      };
-
+    const fetchHoroscope = async () => {
+      const baseUrl = 'http://localhost:5000/api/horoscope';
       try {
-        const responses = await Promise.all(Object.values(urls).map(url => axios.get(url)));
-        const horoscopeContent = responses.map(response => {
-          const $ = cheerio.load(response.data);
-          // Aqui você usa '.find' para buscar dentro do contexto de 'article' com o ID específico do signo
-          // e então encontrar o parágrafo com a classe 'text-pred'
-          return $(`article#${sign}-name`).find('p.text-pred').text().trim();
-        });
-  
-        setHoroscope({
-          daily: horoscopeContent[0],
-          weekly: horoscopeContent[1],
-          monthly: horoscopeContent[2],
-          annual: horoscopeContent[3]
-        });
+        const response = await axios.get(`${baseUrl}/${sign}`);
+        setHoroscope(response.data);
       } catch (error) {
         console.error('Failed to fetch horoscope data:', error);
       }
     };
   
-    fetchData();
+    fetchHoroscope();
   }, [sign]);
 
+  // Função para renderizar o horóscopo anual
+  const renderAnnualHoroscope = (annualData) => {
+    return (
+      <div>
+        <h4>Introdução</h4>
+        <p>{annualData.introduction}</p>
+        {Object.entries(annualData).map(([key, value]) => {
+          // Evitar renderizar a introdução novamente
+          if (key !== "introduction") {
+            return (
+              <div key={key}>
+                <h4>{key}</h4>
+                <p>{value}</p>
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
+    );
+  };
+
   return (
-    <div>
+    <div className="horoscope-container">
       <h2>Horóscopo de {sign.charAt(0).toUpperCase() + sign.slice(1)}</h2>
       <h3>Diário</h3>
       <p>{horoscope.daily}</p>
@@ -55,7 +59,7 @@ function HoroscopePage() {
       <h3>Mensal</h3>
       <p>{horoscope.monthly}</p>
       <h3>Anual</h3>
-      <p>{horoscope.annual}</p>
+      {renderAnnualHoroscope(horoscope.annual)}
     </div>
   );
 }
