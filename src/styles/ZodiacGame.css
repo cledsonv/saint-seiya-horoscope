@@ -1,0 +1,29 @@
+.zodiac-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .zodiac-game button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #4A90E2;  /* Um azul agradável */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .zodiac-game button:hover {
+    background-color: #357ABD;  /* Um azul mais escuro para o hover */
+    transform: translateY(-2px);
+  }
+  
+  .zodiac-game button:active {
+    transform: translateY(1px);
+    background-color: #2A5C9A;  /* Um azul ainda mais escuro para o clique */
+  }
+  
